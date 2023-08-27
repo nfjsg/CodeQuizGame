@@ -1,4 +1,5 @@
-const startBtn = document.getElementById("start-btn");
+//const startBtn = document.getElementById("start-btn");
+const startQuizButton = document.getElementById("start-btn");
 const questionScreen = document.getElementById("question-screen");
 const questionText = document.getElementById("question-text");
 const choicesList = document.getElementById("choices");
@@ -36,7 +37,40 @@ let currentQuestionIndex = 0;
 let score = 0;
 let timeLeft = 60;
 
-startBtn.addEventListener("click", startQuiz);
+//startBtn.addEventListener("click", startQuiz);
+
+
+startQuizButton.addEventListener("click", startQuiz);
+
+// Event listeners for answer buttons
+buttonA.addEventListener("click", () => checkAnswer("a"));
+buttonB.addEventListener("click", () => checkAnswer("b"));
+buttonC.addEventListener("click", () => checkAnswer("c"));
+buttonD.addEventListener("click", () => checkAnswer("d"));
+
+
+function checkAnswer(answer) {
+  correct = quizQuestions[currentQuestionIndex].correctAnswer;
+
+  if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
+    score++;
+    displayFeedback("Correct!");
+    currentQuestionIndex++;
+    generateQuizQuestion();
+  } else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex) {
+    displayFeedback("Wrong!");
+    currentQuestionIndex++;
+    generateQuizQuestion();
+  } else {
+    showScore();
+  }
+}
+
+function displayFeedback(message) {
+  const feedbackEl = document.getElementById("feedback");
+  feedbackEl.textContent = message;
+}
+
 
 function startQuiz() {
   startBtn.parentNode.classList.add("hidden");
@@ -93,36 +127,6 @@ function generateQuizQuestion() {
 // ... (Other functions)
 
 // Start the quiz on button click
-startQuizButton.addEventListener("click", startQuiz);
-
-// Event listeners for answer buttons
-buttonA.addEventListener("click", () => checkAnswer("a"));
-buttonB.addEventListener("click", () => checkAnswer("b"));
-buttonC.addEventListener("click", () => checkAnswer("c"));
-buttonD.addEventListener("click", () => checkAnswer("d"));
-
-
-function checkAnswer(answer) {
-  correct = quizQuestions[currentQuestionIndex].correctAnswer;
-
-  if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
-    score++;
-    displayFeedback("Correct!");
-    currentQuestionIndex++;
-    generateQuizQuestion();
-  } else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex) {
-    displayFeedback("Wrong!");
-    currentQuestionIndex++;
-    generateQuizQuestion();
-  } else {
-    showScore();
-  }
-}
-
-function displayFeedback(message) {
-  const feedbackEl = document.getElementById("feedback");
-  feedbackEl.textContent = message;
-}
 
 
 function endGame() {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Coding Quiz</title>
+</head>
+<body>
+  <header>
+    <h1>Coding Quiz</h1>
+  </header>
+  <main>
+    <section id="start-screen">
+      <button id="start-btn">Start Quiz</button>
+    </section>
+    <section id="question-screen" class="hidden">
+      <h2 id="question-text"></h2>
+      <ul id="choices"></ul>
+    </section>
+    <section id="end-screen" class="hidden">
+      <h2>Quiz Over!</h2>
+      <p>Your score: <span id="final-score"></span></p>
+      <input type="text" id="initials" placeholder="Enter your initials">
+      <button id="submit-score">Submit</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

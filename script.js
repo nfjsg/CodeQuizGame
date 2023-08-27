@@ -74,22 +74,56 @@ function startTimer() {
   }, 1000);
 }
 
-function checkAnswer(selectedIndex) {
-  const currentQuestion = questions[currentQuestionIndex];
-  if (selectedIndex === currentQuestion.correctAnswer) {
-    score++;
-  } else {
-    timeLeft -= 10;
-  }
-  
-  currentQuestionIndex++;
+function generateQuizQuestion() {
+  const feedbackEl = document.getElementById("feedback");
+  feedbackEl.textContent = ""; // Clear feedback message
 
-  if (currentQuestionIndex < questions.length) {
-    displayQuestion();
+  if (currentQuestionIndex === finalQuestionIndex) {
+    return showScore();
+  }
+
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  questionsEl.innerHTML = "<p>" + currentQuestion.question + "</p>";
+  buttonA.innerHTML = currentQuestion.choiceA;
+  buttonB.innerHTML = currentQuestion.choiceB;
+  buttonC.innerHTML = currentQuestion.choiceC;
+  buttonD.innerHTML = currentQuestion.choiceD;
+}
+
+// ... (Other functions)
+
+// Start the quiz on button click
+startQuizButton.addEventListener("click", startQuiz);
+
+// Event listeners for answer buttons
+buttonA.addEventListener("click", () => checkAnswer("a"));
+buttonB.addEventListener("click", () => checkAnswer("b"));
+buttonC.addEventListener("click", () => checkAnswer("c"));
+buttonD.addEventListener("click", () => checkAnswer("d"));
+
+
+function checkAnswer(answer) {
+  correct = quizQuestions[currentQuestionIndex].correctAnswer;
+
+  if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
+    score++;
+    displayFeedback("Correct!");
+    currentQuestionIndex++;
+    generateQuizQuestion();
+  } else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex) {
+    displayFeedback("Wrong!");
+    currentQuestionIndex++;
+    generateQuizQuestion();
   } else {
-    endGame();
+    showScore();
   }
 }
+
+function displayFeedback(message) {
+  const feedbackEl = document.getElementById("feedback");
+  feedbackEl.textContent = message;
+}
+
 
 function endGame() {
   questionScreen.classList.add("hidden");

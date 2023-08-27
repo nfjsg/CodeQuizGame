@@ -112,6 +112,7 @@ function saveScore() {
   localStorage.setItem("highScores", JSON.stringify(highScores));
 
   // Redirect or display high scores page
+  window.location.href = "highscores.html";
 }
 
 // ...

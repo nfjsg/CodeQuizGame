@@ -66,7 +66,7 @@ function startTimer() {
   const timerInterval = setInterval(() => {
     timeLeft--;
     // Update the timer display
-    if (timeLeft <= 0) {
+    if (timeLeft <= 75) {
       clearInterval(timerInterval);
       endGame();
     }

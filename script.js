@@ -66,6 +66,7 @@ function startTimer() {
   const timerInterval = setInterval(() => {
     timeLeft--;
     // Update the timer display
+    quizTimer.textContent = "Time left: " + timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       endGame();

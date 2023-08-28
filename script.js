@@ -6,7 +6,7 @@ const endScreen = document.getElementById("end-screen");
 const finalScore = document.getElementById("final-score");
 const initialsInput = document.getElementById("initials");
 const submitBtn = document.getElementById("submit-score");
-const quizTimer = document.getElementById("quiz-timer"); // Added timer element
+const quizTimer = document.getElementById("quiz-timer");
 
 const questions = [
   {
@@ -34,6 +34,7 @@ const questions = [
 let currentQuestionIndex = 0;
 let score = 0;
 let timeLeft = 60;
+let timerInterval;
 
 startBtn.addEventListener("click", startQuiz);
 
@@ -60,10 +61,14 @@ function displayQuestion() {
 }
 
 function startTimer() {
-  const timerInterval = setInterval(() => {
+  timeLeft = 60; // Reset timer
+  quizTimer.textContent = "Time left: " + timeLeft;
+
+  timerInterval = setInterval(() => {
     timeLeft--;
     quizTimer.textContent = "Time left: " + timeLeft;
-    if (timeLeft <= 0) {
+
+    if (timeLeft <= 0 || currentQuestionIndex === questions.length) {
       clearInterval(timerInterval);
       endGame();
     }
@@ -72,13 +77,15 @@ function startTimer() {
 
 function checkAnswer(answerIndex) {
   const currentQuestion = questions[currentQuestionIndex];
+
   if (answerIndex === currentQuestion.correctAnswer) {
     score++;
     displayFeedback("Correct!");
   } else {
     displayFeedback("Wrong!");
+    timeLeft -= 10; // Subtract time for incorrect answer
   }
-  
+
   currentQuestionIndex++;
   
   if (currentQuestionIndex < questions.length) {
@@ -112,5 +119,8 @@ function saveScore() {
   highScores.push(newScore);
   localStorage.setItem("highScores", JSON.stringify(highScores));
 
-  window.location.href = "highscores.html";
+  window.location.href = "highscores.html"; // Redirect to high scores page
 }
+
+// Start the quiz on button click
+startBtn.addEventListener("click", startQuiz);

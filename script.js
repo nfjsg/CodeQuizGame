@@ -1,5 +1,4 @@
-//const startBtn = document.getElementById("start-btn");
-const startQuizButton = document.getElementById("start-btn");
+const startBtn = document.getElementById("start-btn");
 const questionScreen = document.getElementById("question-screen");
 const questionText = document.getElementById("question-text");
 const choicesList = document.getElementById("choices");
@@ -7,6 +6,7 @@ const endScreen = document.getElementById("end-screen");
 const finalScore = document.getElementById("final-score");
 const initialsInput = document.getElementById("initials");
 const submitBtn = document.getElementById("submit-score");
+const quizTimer = document.getElementById("quiz-timer"); // Added timer element
 
 const questions = [
   {
@@ -24,7 +24,6 @@ const questions = [
     choices: ["20", "14", "10"],
     correctAnswer: 1
   },
-  // Add more questions here
   {
     question: "What does CSS stand for?",
     choices: ["Cascading Style Sheets", "Creative Style Symbols", "Computer Style Sheets"],
@@ -32,45 +31,11 @@ const questions = [
   }
 ];
 
-
 let currentQuestionIndex = 0;
 let score = 0;
 let timeLeft = 60;
 
-//startBtn.addEventListener("click", startQuiz);
-
-
-startQuizButton.addEventListener("click", startQuiz);
-
-// Event listeners for answer buttons
-buttonA.addEventListener("click", () => checkAnswer("a"));
-buttonB.addEventListener("click", () => checkAnswer("b"));
-buttonC.addEventListener("click", () => checkAnswer("c"));
-buttonD.addEventListener("click", () => checkAnswer("d"));
-
-
-function checkAnswer(answer) {
-  correct = quizQuestions[currentQuestionIndex].correctAnswer;
-
-  if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
-    score++;
-    displayFeedback("Correct!");
-    currentQuestionIndex++;
-    generateQuizQuestion();
-  } else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex) {
-    displayFeedback("Wrong!");
-    currentQuestionIndex++;
-    generateQuizQuestion();
-  } else {
-    showScore();
-  }
-}
-
-function displayFeedback(message) {
-  const feedbackEl = document.getElementById("feedback");
-  feedbackEl.textContent = message;
-}
-
+startBtn.addEventListener("click", startQuiz);
 
 function startQuiz() {
   startBtn.parentNode.classList.add("hidden");
@@ -78,8 +43,6 @@ function startQuiz() {
   displayQuestion();
   startTimer();
 }
-
-// ... (Previous code)
 
 function displayQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
@@ -99,7 +62,6 @@ function displayQuestion() {
 function startTimer() {
   const timerInterval = setInterval(() => {
     timeLeft--;
-    // Update the timer display
     quizTimer.textContent = "Time left: " + timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
@@ -108,26 +70,28 @@ function startTimer() {
   }, 1000);
 }
 
-function generateQuizQuestion() {
-  const feedbackEl = document.getElementById("feedback");
-  feedbackEl.textContent = ""; // Clear feedback message
-
-  if (currentQuestionIndex === finalQuestionIndex) {
-    return showScore();
+function checkAnswer(answerIndex) {
+  const currentQuestion = questions[currentQuestionIndex];
+  if (answerIndex === currentQuestion.correctAnswer) {
+    score++;
+    displayFeedback("Correct!");
+  } else {
+    displayFeedback("Wrong!");
   }
-
-  const currentQuestion = quizQuestions[currentQuestionIndex];
-  questionsEl.innerHTML = "<p>" + currentQuestion.question + "</p>";
-  buttonA.innerHTML = currentQuestion.choiceA;
-  buttonB.innerHTML = currentQuestion.choiceB;
-  buttonC.innerHTML = currentQuestion.choiceC;
-  buttonD.innerHTML = currentQuestion.choiceD;
+  
+  currentQuestionIndex++;
+  
+  if (currentQuestionIndex < questions.length) {
+    displayQuestion();
+  } else {
+    endGame();
+  }
 }
 
-// ... (Other functions)
-
-// Start the quiz on button click
-
+function displayFeedback(message) {
+  const feedbackEl = document.getElementById("feedback");
+  feedbackEl.textContent = message;
+}
 
 function endGame() {
   questionScreen.classList.add("hidden");
@@ -137,12 +101,10 @@ function endGame() {
 
 submitBtn.addEventListener("click", saveScore);
 
-// ... (Previous code)
-
 function saveScore() {
   const initials = initialsInput.value;
   if (initials.trim() === "") {
-    return; // Don't save if initials are empty
+    return;
   }
 
   const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
@@ -150,10 +112,5 @@ function saveScore() {
   highScores.push(newScore);
   localStorage.setItem("highScores", JSON.stringify(highScores));
 
-  // Redirect or display high scores page
   window.location.href = "highscores.html";
 }
-
-// ...
-
-// ...

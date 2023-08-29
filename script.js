@@ -10,26 +10,57 @@ const quizTimer = document.getElementById("quiz-timer");
 
 const questions = [
   {
-    question: "What does HTML stand for?",
-    choices: ["Hyper Text Markup Language", "High Technology Markup Language", "Home Tool Markup Language"],
+    question: "What is the purpose of the querySelector method in JavaScript?",
+    choices: [
+      "A) To select the first element with a specific class",
+      "B) To select the last element with a specific tag",
+      "C) To select an element by its ID",
+      "D) To select all elements in the document"
+    ],
     correctAnswer: 0
   },
   {
-    question: "Which of the following is a JavaScript data type?",
-    choices: ["String", "Float", "Boolean"],
-    correctAnswer: 2
+    question: "Which of the following is the correct way to declare a variable in JavaScript?",
+    choices: [
+      "A) var myVar = 5;",
+      "B) variable myVar = 5;",
+      "C) myVar = 5;",
+      "D) let myVar = 5;"
+    ],
+    correctAnswer: 3
   },
   {
-    question: "What is the result of 2 + 3 * 4?",
-    choices: ["20", "14", "10"],
+    question: "What does the term 'hoisting' refer to in JavaScript?",
+    choices: [
+      "A) Elevating a function to a higher scope",
+      "B) Moving variables to the top of their scope before execution",
+      "C) Declaring a variable inside a function",
+      "D) Wrapping code in a higher-order function"
+    ],
     correctAnswer: 1
   },
   {
-    question: "What does CSS stand for?",
-    choices: ["Cascading Style Sheets", "Creative Style Symbols", "Computer Style Sheets"],
+    question: "Which array method is used to add one or more elements to the end of an array and returns the new length of the array?",
+    choices: [
+      "A) push()",
+      "B) pop()",
+      "C) shift()",
+      "D) unshift()"
+    ],
     correctAnswer: 0
+  },
+  {
+    question: "What is the purpose of the setTimeout function in JavaScript?",
+    choices: [
+      "A) To add an event listener to an element",
+      "B) To stop the execution of a loop",
+      "C) To delay the execution of a function",
+      "D) To immediately invoke a function"
+    ],
+    correctAnswer: 2
   }
 ];
+
 
 let currentQuestionIndex = 0;
 let score = 0;

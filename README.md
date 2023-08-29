@@ -1,6 +1,6 @@
 # Coding Quiz App
 
-![Screenshot](./screenshot.png)
+![Screenshot](IMG_7237.jpeg)
 
 ## Description
 

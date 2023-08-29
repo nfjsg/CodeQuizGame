@@ -8,7 +8,8 @@ This web application allows coding boot camp students to take a timed quiz on Ja
 
 ## Live Demo
 
-Check out the live demo of the application [here](https://your-deployed-app-url.com).
+Check out the live demo of the application [here]((https://nfjsg.github.io/CodeQuizGame/)).
+
 
 ## Table of Contents
 
